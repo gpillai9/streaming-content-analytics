@@ -1,5 +1,6 @@
 import requests
 import os
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,5 +12,12 @@ request_headers = {"Authorization": "Bearer " + my_api_key}
 
 response = requests.get(url,params=query_parameters,headers=request_headers)
 
-print(response.json())
+if response.status_code != 200:
+    print(response.status_code)
+else:
+    data = response.json()
+    with open('movies.json','w') as f:
+        json.dump(data, f)
+
+
 
