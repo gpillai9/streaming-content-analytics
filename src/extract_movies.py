@@ -2,6 +2,7 @@ import requests
 import os
 import json
 from dotenv import load_dotenv
+from datetime import datetime, timezone
 
 load_dotenv()
 
@@ -16,8 +17,10 @@ if response.status_code != 200:
     print(response.status_code)
 else:
     data = response.json()
-    with open('movies.json','w') as f:
+    now = datetime.now(timezone.utc)
+    timestamp = now.strftime('%Y%m%d_%H%M%S')
+    with open(f'../data/raw/movies_{timestamp}.json','w') as f:
         json.dump(data, f)
-
+    
 
 
