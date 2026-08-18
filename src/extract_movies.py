@@ -15,7 +15,7 @@ url = "https://api.themoviedb.org/3/movie/popular"
 request_headers = {"Authorization": "Bearer " + my_api_key}
 success_flag = True
 data = []
-for page_number in range(1,4):
+for page_number in range(1,26):
     query_parameters = {"language": "en-US", "page":page_number}
     response = requests.get(url,params=query_parameters,headers=request_headers)
     if response.status_code != 200:
