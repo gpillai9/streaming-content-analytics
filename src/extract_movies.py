@@ -17,6 +17,9 @@ all_movies_url = url+"popular"
 request_headers = {"Authorization": "Bearer " + my_api_key}
 success_flag = True
 data = []
+metadata = []
+with open(f'{project_root}/data/metadata/movies.json','r') as f:
+    metadata = json.load(f)
 for page_number in range(1,26):
     query_parameters = {"language": "en-US", "page":page_number}
     response = requests.get(all_movies_url,params=query_parameters,headers=request_headers)
