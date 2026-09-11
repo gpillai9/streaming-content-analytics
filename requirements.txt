@@ -1,2 +1,8 @@
 python-dotenv
 requests
+os
+sys
+json
+datetime
+pathlib
+google-cloud-bigquery
