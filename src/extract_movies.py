@@ -1,6 +1,7 @@
 import requests
 import os
 import sys
+import uuid
 import json
 from dotenv import load_dotenv
 from datetime import datetime, timezone
@@ -10,16 +11,21 @@ load_dotenv()
 
 my_api_key = os.getenv("API_TOKEN")
 now = datetime.now(timezone.utc)
+extracted_at = now
+snapshot_date = now.date()
 query_parameters = {}
 timestamp = now.strftime('%Y%m%d_%H%M%S')
 project_root = (Path(__file__).resolve().parent.parent)
 url = "https://api.themoviedb.org/3/movie/"
+source_file_name = f"movies_{timestamp}.json"
 metadata_url = ""
 all_movies_url = url+"popular"
+my_uuid = str(uuid.uuid4())
 request_headers = {"Authorization": "Bearer " + my_api_key}
 success_flag = True
 data = []
 metadata = []
+snapshot_rows = []
 known_movie_ids = set()
 with open(f'{project_root}/data/metadata/movies.json','r') as f:
     metadata = json.load(f)
@@ -36,11 +42,24 @@ for page_number in range(1,26):
         data.append(response.json())
 if success_flag == False:
     sys.exit("API Request (all movies) Failed. Terminating Script.")
-with open(f'{project_root}/data/raw/movies_{timestamp}.json','w') as f:
+with open(project_root / "data" / "raw" / source_file_name,'w') as f:
     json.dump(data, f, indent=2)
 
+
+
 for page in data:
-    for movie in page['results']:
+    for position, movie in enumerate(page["results"], start=1):
+        snapshot_movie = movie.copy()
+        snapshot_movie["movie_id"] = snapshot_movie.pop("id")
+        snapshot_movie["extracted_at"] = extracted_at
+        snapshot_movie["snapshot_date"] = snapshot_date
+        snapshot_movie["source_file_name"] = source_file_name
+        snapshot_movie["page_number"] = page["page"]
+        snapshot_movie["popularity_rank"] = ((page["page"] - 1) * 20) + position
+        snapshot_movie["ingestion_run_id"] = my_uuid
+        snapshot_movie.pop("backdrop_path")
+        snapshot_movie.pop("poster_path")
+        snapshot_rows.append(snapshot_movie)
         if(movie["id"] not in known_movie_ids):
             metadata_url = url + str(movie["id"])
             query_parameters = {"language": "en-US"}
@@ -55,7 +74,8 @@ for page in data:
 with open(f'{project_root}/data/metadata/movies.json','w') as f:
     json.dump(metadata, f, indent=2)
 
-    
-    
+print(len(snapshot_rows))
+print(snapshot_rows[0])
+print(snapshot_rows[-1])
 
 
