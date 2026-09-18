@@ -23,9 +23,11 @@ metadata_url = ""
 all_movies_url = url+"popular"
 my_uuid = str(uuid.uuid4())
 request_headers = {"Authorization": "Bearer " + my_api_key}
+counter = 0
 success_flag = True
 data = []
 metadata = []
+metadata_new = []
 metadata_bq = []
 snapshot_rows = []
 known_movie_ids = set()
@@ -70,20 +72,25 @@ for page in data:
             if response.status_code != 200:
                 print(response.status_code)
                 sys.exit("API Request (individual movie) Failed. Terminating Script.")
-            metadata.append(response.json())
+            new_movie = response.json()
+            metadata.append(new_movie)
+            metadata_new.append(new_movie)
             known_movie_ids.add(movie["id"])
-            print("New movie added!")
+            print(counter)
+            counter += 1
 
 loaded_at = datetime.now(timezone.utc)
 for movie in snapshot_rows:
     movie["load_timestamp"] = str(loaded_at)
+'''
 table_id = "streaming-content-analytics.tmdb_raw.raw_movie_snapshots"
 job = client.load_table_from_json(snapshot_rows, table_id)
 job.result()
+'''
 with open(f'{project_root}/data/metadata/movies.json','w') as f:
     json.dump(metadata, f, indent=2)
 
-for movie in metadata:
+for movie in metadata_new:
     metadata_to_load = {}
     metadata_to_load["movie_id"] = movie["id"]
     metadata_to_load["title"] = movie["title"]
@@ -111,9 +118,10 @@ for movie in metadata:
     metadata_to_load["ingestion_id"] = metadata_uuid
     metadata_to_load["enrichment_timestamp"] = str(metadata_now)
     metadata_bq.append(metadata_to_load)
-'''
-table_id = "streaming-content-analytics.tmdb_raw.raw_movie_metadata"
-job = client.load_table_from_json(metadata_bq, table_id)
-job.result()
-'''
+
+if(len(metadata_bq) != 0):
+    table_id = "streaming-content-analytics.tmdb_raw.raw_movie_metadata"
+    job = client.load_table_from_json(metadata_bq, table_id)
+    job.result()
+
 
