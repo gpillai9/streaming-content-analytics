@@ -26,6 +26,7 @@ request_headers = {"Authorization": "Bearer " + my_api_key}
 success_flag = True
 data = []
 metadata = []
+metadata_bq = []
 snapshot_rows = []
 known_movie_ids = set()
 with open(f'{project_root}/data/metadata/movies.json','r') as f:
@@ -47,7 +48,8 @@ with open(project_root / "data" / "raw" / source_file_name,'w') as f:
     json.dump(data, f, indent=2)
 
 
-
+metadata_now = datetime.now(timezone.utc)
+metadata_uuid = str(uuid.uuid4())
 for page in data:
     for position, movie in enumerate(page["results"], start=1):
         snapshot_movie = movie.copy()
@@ -80,10 +82,38 @@ job = client.load_table_from_json(snapshot_rows, table_id)
 job.result()
 with open(f'{project_root}/data/metadata/movies.json','w') as f:
     json.dump(metadata, f, indent=2)
-    
 
-print(len(snapshot_rows))
-print(snapshot_rows[0])
-print(snapshot_rows[-1])
-
+for movie in metadata:
+    metadata_to_load = {}
+    metadata_to_load["movie_id"] = movie["id"]
+    metadata_to_load["title"] = movie["title"]
+    metadata_to_load["budget"] = movie["budget"]
+    metadata_to_load["revenue"] = movie["revenue"]
+    metadata_to_load["status"] = movie["status"]
+    metadata_to_load["tagline"] = movie["tagline"]
+    metadata_to_load["imdb_id"] = movie["imdb_id"]
+    metadata_to_load["runtime"] = movie["runtime"]
+    metadata_to_load["collection_id"] = movie["belongs_to_collection"]["id"] if movie["belongs_to_collection"] is not None else None
+    metadata_to_load["collection_name"] = movie["belongs_to_collection"]["name"] if movie["belongs_to_collection"] is not None else None
+    metadata_to_load["genres"] = movie["genres"]
+    metadata_to_load["origin_country"] = movie["origin_country"]
+    metadata_to_load["production_companies"] = [
+    {
+        "id": company["id"],
+        "name": company["name"],
+        "origin_country": company["origin_country"]
+    }
+    for company in movie["production_companies"]
+]
+    metadata_to_load["production_countries"] = [m["iso_3166_1"] for m in movie["production_countries"]]
+    metadata_to_load["spoken_languages"] = [m["english_name"] for m in movie["spoken_languages"]]
+    metadata_to_load["ingestion_timestamp"] = str(metadata_now)
+    metadata_to_load["ingestion_id"] = metadata_uuid
+    metadata_to_load["enrichment_timestamp"] = str(metadata_now)
+    metadata_bq.append(metadata_to_load)
+'''
+table_id = "streaming-content-analytics.tmdb_raw.raw_movie_metadata"
+job = client.load_table_from_json(metadata_bq, table_id)
+job.result()
+'''
 
