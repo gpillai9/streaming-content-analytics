@@ -23,7 +23,6 @@ metadata_url = ""
 all_movies_url = url+"popular"
 my_uuid = str(uuid.uuid4())
 request_headers = {"Authorization": "Bearer " + my_api_key}
-counter = 0
 success_flag = True
 data = []
 metadata = []
@@ -76,17 +75,29 @@ for page in data:
             metadata.append(new_movie)
             metadata_new.append(new_movie)
             known_movie_ids.add(movie["id"])
-            print(counter)
-            counter += 1
 
 loaded_at = datetime.now(timezone.utc)
 for movie in snapshot_rows:
     movie["load_timestamp"] = str(loaded_at)
-'''
-table_id = "streaming-content-analytics.tmdb_raw.raw_movie_snapshots"
-job = client.load_table_from_json(snapshot_rows, table_id)
-job.result()
-'''
+
+parameter = bigquery.ScalarQueryParameter("target_date", "DATE", snapshot_date)
+job_config = bigquery.QueryJobConfig(
+    query_parameters = [parameter]
+)
+job = client.query("" \
+"SELECT COUNT(*) AS counter " \
+"FROM `streaming-content-analytics.tmdb_raw.raw_movie_snapshots` a " \
+"WHERE a.snapshot_date = @target_date",job_config)
+response = job.result()
+for row in response:
+    load_count = row["counter"]
+print(load_count)
+
+if load_count == 0: 
+    table_id = "streaming-content-analytics.tmdb_raw.raw_movie_snapshots"
+    job = client.load_table_from_json(snapshot_rows, table_id)
+    job.result()
+
 with open(f'{project_root}/data/metadata/movies.json','w') as f:
     json.dump(metadata, f, indent=2)
 
