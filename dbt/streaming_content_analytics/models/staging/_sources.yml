@@ -1,0 +1,7 @@
+version: 2
+sources:
+  - name: tmdb_raw
+    schema: tmdb_raw
+    tables:
+      - name: raw_movie_snapshots
+      - name: raw_movie_metadata

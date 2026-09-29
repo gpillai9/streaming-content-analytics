@@ -1,0 +1,13 @@
+version: 2
+models:
+ - name: stg_movie_snapshots
+   columns:
+    - name: movie_id
+      data_tests:
+        - not_null
+ - name: stg_movie_metadata
+   columns:
+    - name: movie_id
+      data_tests:
+        - not_null
+        - unique

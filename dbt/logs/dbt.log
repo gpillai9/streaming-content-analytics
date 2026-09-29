@@ -1,0 +1,144 @@
+[0m16:56:36.961755 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E4826C6510>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E484EC7D90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E484EC7890>]}
+
+
+============================== 16:56:36.974001 | 551119b2-ac27-42d4-a1f2-be35f217aced ==============================
+[0m16:56:36.974001 [info ] [MainThread]: Running with dbt=1.12.5
+[0m16:56:36.974832 [debug] [MainThread]: running dbt with arguments {'maximum_seed_size_mib': '1', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'static_parser': 'True', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\Owner\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'use_experimental_parser': 'False', 'invocation_command': 'dbt init', 'log_path': 'logs'}
+[0m16:56:37.009731 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\Owner\.dbt
+[0m16:58:56.560442 [debug] [MainThread]: Starter project path: c:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\.venv\Lib\site-packages\dbt\include\starter_project
+[0m16:58:56.600542 [info ] [MainThread]: Setting up your profile.
+[0m17:05:04.395445 [info ] [MainThread]: Profile streaming_content_analytics written to C:\Users\Owner\.dbt\profiles.yml using target's profile_template.yml and your supplied values.
+[0m17:05:04.398866 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m17:05:04.399498 [info ] [MainThread]: dbt version: 1.12.5
+[0m17:05:04.400320 [info ] [MainThread]: python version: 3.13.3
+[0m17:05:04.400844 [info ] [MainThread]: python path: c:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\.venv\Scripts\python.exe
+[0m17:05:04.401360 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m17:05:04.492076 [info ] [MainThread]: Using profiles dir at C:\Users\Owner\.dbt
+[0m17:05:04.492762 [info ] [MainThread]: Using profiles.yml file at C:\Users\Owner\.dbt\profiles.yml
+[0m17:05:04.493235 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\dbt\streaming_content_analytics\dbt_project.yml
+[0m17:05:04.493692 [info ] [MainThread]: adapter type: bigquery
+[0m17:05:04.494109 [info ] [MainThread]: adapter version: 1.12.1
+[0m17:05:04.601915 [info ] [MainThread]: Configuration:
+[0m17:05:04.602409 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m17:05:04.602779 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m17:05:04.603152 [info ] [MainThread]: Required dependencies:
+[0m17:05:04.603479 [debug] [MainThread]: Executing "git --help"
+[0m17:05:04.643177 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m17:05:04.643635 [debug] [MainThread]: STDERR: "b''"
+[0m17:05:04.644069 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m17:05:04.644505 [info ] [MainThread]: Connection:
+[0m17:05:04.644919 [info ] [MainThread]:   method: oauth
+[0m17:05:04.645260 [info ] [MainThread]:   database: streaming-content-analytics
+[0m17:05:04.645566 [info ] [MainThread]:   execution_project: streaming-content-analytics
+[0m17:05:04.645990 [info ] [MainThread]:   schema: tmdb_analytics
+[0m17:05:04.646225 [info ] [MainThread]:   location: US
+[0m17:05:04.646480 [info ] [MainThread]:   priority: interactive
+[0m17:05:04.646825 [info ] [MainThread]:   maximum_bytes_billed: None
+[0m17:05:04.647169 [info ] [MainThread]:   reservation: None
+[0m17:05:04.647641 [info ] [MainThread]:   impersonate_service_account: None
+[0m17:05:04.648083 [info ] [MainThread]:   job_retry_deadline_seconds: None
+[0m17:05:04.648488 [info ] [MainThread]:   job_retries: 1
+[0m17:05:04.648850 [info ] [MainThread]:   job_creation_timeout_seconds: None
+[0m17:05:04.649274 [info ] [MainThread]:   job_execution_timeout_seconds: 300
+[0m17:05:04.649765 [info ] [MainThread]:   job_link_info_level_log: False
+[0m17:05:04.650179 [info ] [MainThread]:   timeout_seconds: 300
+[0m17:05:04.650528 [info ] [MainThread]:   client_id: None
+[0m17:05:04.650923 [info ] [MainThread]:   token_uri: None
+[0m17:05:04.651332 [info ] [MainThread]:   compute_region: None
+[0m17:05:04.651709 [info ] [MainThread]:   dataproc_cluster_name: None
+[0m17:05:04.652061 [info ] [MainThread]:   gcs_bucket: None
+[0m17:05:04.652408 [info ] [MainThread]:   dataproc_batch: None
+[0m17:05:04.653190 [info ] [MainThread]: Registered adapter: bigquery=1.12.1
+[0m17:05:04.971207 [debug] [MainThread]: Acquiring new bigquery connection 'debug'
+[0m17:05:04.971609 [debug] [MainThread]: On debug: select 1 as id
+[0m17:05:04.971895 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m17:05:09.861017 [debug] [MainThread]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=streaming-content-analytics&j=bq:US:819ebe6d-698e-4b59-9aa3-918d79fdbcf9&page=queryresults
+[0m17:05:10.088476 [debug] [MainThread]: SQL status: OK in 0.227 seconds
+[0m17:05:15.613005 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m17:05:15.613936 [info ] [MainThread]: [32mAll checks passed![0m
+[0m17:05:15.614562 [info ] [MainThread]: Your new dbt project "streaming_content_analytics" was created!
+Initialized new project in C:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\dbt\streaming_content_analytics\streaming_content_analytics
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m17:05:15.615849 [debug] [MainThread]: Command `dbt init` succeeded at 17:05:15.615718 after 518.91 seconds
+[0m17:05:15.616184 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m17:05:15.616779 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E49661BA80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E484D92570>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001E4967B0490>]}
+[0m17:05:15.617409 [debug] [MainThread]: Flushing usage events
+[0m17:05:16.253306 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m17:06:39.090464 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000020147ADA510>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002014A2D7D90>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002014A2D7890>]}
+
+
+============================== 17:06:39.095489 | 8d808173-6425-4b51-912c-2cf7d7697216 ==============================
+[0m17:06:39.095489 [info ] [MainThread]: Running with dbt=1.12.5
+[0m17:06:39.096083 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'maximum_seed_size_mib': '1', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'profiles_dir': 'C:\\Users\\Owner\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'indirect_selection': 'eager', 'hints_enabled': 'True', 'invocation_command': 'dbt debug', 'use_experimental_parser': 'False', 'use_colors': 'True', 'log_path': 'logs'}
+[0m17:06:39.113009 [info ] [MainThread]: dbt version: 1.12.5
+[0m17:06:39.113756 [info ] [MainThread]: python version: 3.13.3
+[0m17:06:39.114367 [info ] [MainThread]: python path: c:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\.venv\Scripts\python.exe
+[0m17:06:39.115101 [info ] [MainThread]: os info: Windows-11-10.0.26200-SP0
+[0m17:06:40.023624 [info ] [MainThread]: Using profiles dir at C:\Users\Owner\.dbt
+[0m17:06:40.024184 [info ] [MainThread]: Using profiles.yml file at C:\Users\Owner\.dbt\profiles.yml
+[0m17:06:40.024521 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\dbt\dbt_project.yml
+[0m17:06:40.024819 [info ] [MainThread]: adapter type: bigquery
+[0m17:06:40.025087 [info ] [MainThread]: adapter version: 1.12.1
+[0m17:06:40.025416 [info ] [MainThread]: Configuration:
+[0m17:06:40.025714 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m17:06:40.025999 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m17:06:40.026250 [info ] [MainThread]: Required dependencies:
+[0m17:06:40.026511 [debug] [MainThread]: Executing "git --help"
+[0m17:06:40.069875 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m17:06:40.070327 [debug] [MainThread]: STDERR: "b''"
+[0m17:06:40.070677 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m17:06:40.071043 [info ] [MainThread]: Connection:
+[0m17:06:40.071410 [info ] [MainThread]:   method: oauth
+[0m17:06:40.071753 [info ] [MainThread]:   database: streaming-content-analytics
+[0m17:06:40.072034 [info ] [MainThread]:   execution_project: streaming-content-analytics
+[0m17:06:40.072323 [info ] [MainThread]:   schema: tmdb_analytics
+[0m17:06:40.072594 [info ] [MainThread]:   location: US
+[0m17:06:40.072861 [info ] [MainThread]:   priority: interactive
+[0m17:06:40.073108 [info ] [MainThread]:   maximum_bytes_billed: None
+[0m17:06:40.073344 [info ] [MainThread]:   reservation: None
+[0m17:06:40.073586 [info ] [MainThread]:   impersonate_service_account: None
+[0m17:06:40.073882 [info ] [MainThread]:   job_retry_deadline_seconds: None
+[0m17:06:40.074197 [info ] [MainThread]:   job_retries: 1
+[0m17:06:40.074531 [info ] [MainThread]:   job_creation_timeout_seconds: None
+[0m17:06:40.074829 [info ] [MainThread]:   job_execution_timeout_seconds: 300
+[0m17:06:40.075137 [info ] [MainThread]:   job_link_info_level_log: False
+[0m17:06:40.075475 [info ] [MainThread]:   timeout_seconds: 300
+[0m17:06:40.075790 [info ] [MainThread]:   client_id: None
+[0m17:06:40.076476 [info ] [MainThread]:   token_uri: None
+[0m17:06:40.076913 [info ] [MainThread]:   compute_region: None
+[0m17:06:40.077322 [info ] [MainThread]:   dataproc_cluster_name: None
+[0m17:06:40.077729 [info ] [MainThread]:   gcs_bucket: None
+[0m17:06:40.078047 [info ] [MainThread]:   dataproc_batch: None
+[0m17:06:40.078577 [info ] [MainThread]: Registered adapter: bigquery=1.12.1
+[0m17:06:40.353367 [debug] [MainThread]: Acquiring new bigquery connection 'debug'
+[0m17:06:40.353712 [debug] [MainThread]: On debug: select 1 as id
+[0m17:06:40.354003 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m17:06:42.429729 [debug] [MainThread]: BigQuery adapter: https://console.cloud.google.com/bigquery?project=streaming-content-analytics&j=bq:US:b6f69476-6467-40e0-9484-d60c511424aa&page=queryresults
+[0m17:06:42.684259 [debug] [MainThread]: SQL status: OK in 0.254 seconds
+[0m17:06:42.962877 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m17:06:42.963498 [info ] [MainThread]: [31m1 check failed:[0m
+[0m17:06:42.963922 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\Owner\OneDrive\Desktop\Streaming Content Analytics\dbt\dbt_project.yml> not found
+
+[0m17:06:42.964910 [debug] [MainThread]: Command `dbt debug` failed at 17:06:42.964787 after 4.02 seconds
+[0m17:06:42.965221 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m17:06:42.965838 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002015BCE02B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002015BAC7770>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002015BB246B0>]}
+[0m17:06:42.966624 [debug] [MainThread]: Flushing usage events
+[0m17:06:43.603315 [debug] [MainThread]: An error was encountered while trying to flush usage events
