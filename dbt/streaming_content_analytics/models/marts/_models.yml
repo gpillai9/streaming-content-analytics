@@ -1,0 +1,8 @@
+version: 2
+models:
+ - name: fct_movie_daily
+   columns:
+    - name: movie_snapshot_id
+      data_tests:
+        - not_null
+        - unique
