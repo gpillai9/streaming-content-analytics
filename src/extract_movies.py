@@ -25,15 +25,32 @@ my_uuid = str(uuid.uuid4())
 request_headers = {"Authorization": "Bearer " + my_api_key}
 success_flag = True
 data = []
-metadata = []
 metadata_new = []
 metadata_bq = []
 snapshot_rows = []
 known_movie_ids = set()
-with open(f'{project_root}/data/metadata/movies.json','r') as f:
-    metadata = json.load(f)
-for movie in metadata:
-    known_movie_ids.add(movie["id"])
+
+
+parameter = bigquery.ScalarQueryParameter("target_date", "DATE", snapshot_date)
+job_config = bigquery.QueryJobConfig(
+    query_parameters = [parameter]
+)
+job = client.query("" \
+"SELECT COUNT(*) AS counter " \
+"FROM `streaming-content-analytics.tmdb_raw.raw_movie_snapshots` a " \
+"WHERE a.snapshot_date = @target_date",job_config)
+response = job.result()
+for row in response:
+    load_count = row["counter"]
+if load_count > 0:
+    print(f"Snapshot for {snapshot_date} already exists. Skipping ingestion.")
+    sys.exit(0)
+job = client.query("" \
+"SELECT DISTINCT movie_id " \
+"FROM `streaming-content-analytics.tmdb_raw.raw_movie_metadata` a ")
+response = job.result()
+for row in response:
+    known_movie_ids.add(row["movie_id"])    
 for page_number in range(1,26):
     query_parameters = {"language": "en-US", "page":page_number}
     response = requests.get(all_movies_url,params=query_parameters,headers=request_headers)
@@ -72,7 +89,6 @@ for page in data:
                 print(response.status_code)
                 sys.exit("API Request (individual movie) Failed. Terminating Script.")
             new_movie = response.json()
-            metadata.append(new_movie)
             metadata_new.append(new_movie)
             known_movie_ids.add(movie["id"])
 
@@ -80,26 +96,12 @@ loaded_at = datetime.now(timezone.utc)
 for movie in snapshot_rows:
     movie["load_timestamp"] = str(loaded_at)
 
-parameter = bigquery.ScalarQueryParameter("target_date", "DATE", snapshot_date)
-job_config = bigquery.QueryJobConfig(
-    query_parameters = [parameter]
-)
-job = client.query("" \
-"SELECT COUNT(*) AS counter " \
-"FROM `streaming-content-analytics.tmdb_raw.raw_movie_snapshots` a " \
-"WHERE a.snapshot_date = @target_date",job_config)
-response = job.result()
-for row in response:
-    load_count = row["counter"]
-print(load_count)
 
-if load_count == 0: 
-    table_id = "streaming-content-analytics.tmdb_raw.raw_movie_snapshots"
-    job = client.load_table_from_json(snapshot_rows, table_id)
-    job.result()
 
-with open(f'{project_root}/data/metadata/movies.json','w') as f:
-    json.dump(metadata, f, indent=2)
+table_id = "streaming-content-analytics.tmdb_raw.raw_movie_snapshots"
+job = client.load_table_from_json(snapshot_rows, table_id)
+job.result()
+
 
 for movie in metadata_new:
     metadata_to_load = {}
