@@ -5,10 +5,11 @@ import uuid
 import json
 from dotenv import load_dotenv
 from datetime import datetime, timezone
-from pathlib import Path
 from google.cloud import bigquery
+from google.cloud import storage
 
 load_dotenv()
+storage_client = storage.Client(project="streaming-content-analytics")
 client = bigquery.Client(project="streaming-content-analytics")
 my_api_key = os.getenv("API_TOKEN")
 now = datetime.now(timezone.utc)
@@ -16,7 +17,6 @@ extracted_at = now
 snapshot_date = now.date()
 query_parameters = {}
 timestamp = now.strftime('%Y%m%d_%H%M%S')
-project_root = (Path(__file__).resolve().parent.parent)
 url = "https://api.themoviedb.org/3/movie/"
 source_file_name = f"movies_{timestamp}.json"
 metadata_url = ""
@@ -62,8 +62,9 @@ for page_number in range(1,26):
         data.append(response.json())
 if success_flag == False:
     sys.exit("API Request (all movies) Failed. Terminating Script.")
-with open(project_root / "data" / "raw" / source_file_name,'w') as f:
-    json.dump(data, f, indent=2)
+bucket = storage_client.bucket("streaming-content-analytics-raw-gp")
+blob = bucket.blob(source_file_name)
+blob.upload_from_string(json.dumps(data,indent=2),content_type="application/json")
 
 
 metadata_now = datetime.now(timezone.utc)
