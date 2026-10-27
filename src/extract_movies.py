@@ -10,7 +10,7 @@ from google.cloud import storage
 
 load_dotenv()
 storage_client = storage.Client(project="streaming-content-analytics")
-client = bigquery.Client(project="streaming-content-analytics")
+cc
 my_api_key = os.getenv("API_TOKEN")
 now = datetime.now(timezone.utc)
 extracted_at = now
