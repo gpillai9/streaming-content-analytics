@@ -18,10 +18,14 @@ job = client.query("SELECT DISTINCT SAFE_CAST(movie_id AS STRING) AS movie_id " 
 "WHERE movie_id NOT IN " \
 "(SELECT DISTINCT tmdb_id " \
 "FROM `streaming-content-analytics.tmdb_raw.movie_wikipedia_mapping`) " \
-"LIMIT 10")
+"AND movie_id NOT IN " \
+"(SELECT tmdb_id " \
+"FROM `streaming-content-analytics.tmdb_raw.movie_mapping_attempts` " \
+"WHERE last_attempt > TIMESTAMP_SUB(CURRENT_TIMESTAMP(), INTERVAL 7 DAY))")
 response = job.result()
 for row in response:
     movie_ids.append(row.movie_id)
+print(f"Movies selected for mapping: {len(movie_ids)}")
 movie_mappings = []
 unsuccesful_attempts = []
 for id in movie_ids:
@@ -90,3 +94,9 @@ if movie_mappings:
     job.result()
 print(f"Inserted {len(movie_mappings)} movie mappings.")
 print(f"Unsuccessful attempts: {len(unsuccesful_attempts)}")
+
+attempts_table_id = "streaming-content-analytics.tmdb_raw.movie_mapping_attempts"
+
+if unsuccesful_attempts:
+    job = client.load_table_from_json(unsuccesful_attempts, attempts_table_id)
+    job.result()
