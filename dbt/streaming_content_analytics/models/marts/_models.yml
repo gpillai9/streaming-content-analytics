@@ -1,8 +1,15 @@
+
 version: 2
 models:
- - name: fct_movie_daily
-   columns:
-    - name: movie_snapshot_id
-      data_tests:
-        - not_null
-        - unique
+  - name: fct_movie_daily
+    columns:
+      - name: movie_snapshot_id
+        data_tests:
+          - not_null
+          - unique
+      - name: movie_id
+        data_tests:
+          - not_null
+      - name: snapshot_date
+        data_tests:
+          - not_null

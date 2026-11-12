@@ -5,3 +5,8 @@ sources:
     tables:
       - name: raw_movie_snapshots
       - name: raw_movie_metadata
+      - name: movie_wikipedia_mapping
+  - name: wikipedia_raw
+    schema: wikipedia_raw
+    tables:
+      - name: raw_article_pageviews

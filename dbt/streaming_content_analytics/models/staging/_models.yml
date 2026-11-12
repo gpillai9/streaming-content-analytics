@@ -11,3 +11,22 @@ models:
       data_tests:
         - not_null
         - unique
+ - name: stg_movie_wikipedia_mapping
+   columns:
+    - name: tmdb_id
+      data_tests:
+        - not_null
+        - unique
+    - name: wikipedia_title
+      data_tests:
+        - not_null
+
+ - name: stg_wikipedia_pageviews
+   columns:
+    - name: article_title
+      data_tests:
+        - not_null
+    - name: view_date
+      data_tests:
+        - not_null
+ 
